@@ -407,16 +407,20 @@ export class PluginManagerExtImpl implements PluginManagerExt, PluginManager {
     }
 
     activatePlugin(pluginId: string): PromiseLike<void> {
+        console.error('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ACTIVATE ', pluginId);
         if (this.pluginActivationPromises.has(pluginId)) {
+            console.error('!!! return pluginActivationPromises.has ', pluginId);
             return this.pluginActivationPromises.get(pluginId)!.promise;
         }
 
         const deferred = new Deferred<void>();
 
         if (this.activatedPlugins.get(pluginId)) {
+            console.error('!!! return activatedPlugins.get ', pluginId);
             deferred.resolve();
         }
         this.pluginActivationPromises.set(pluginId, deferred);
+        console.error('!!! return deferred.promise ', pluginId);
         return deferred.promise;
     }
 
